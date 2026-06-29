@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require("express");
 const session = require("express-session");
 const { Pool } = require("pg");
@@ -7,11 +8,8 @@ const PORT = 3000;
 
 // Database connection
 const pool = new Pool({
-    host: "localhost",
-    database: "blogdb",
-    user: "sofimendoza",
-    password: "",
-    port: 5432,
+    connectionString: process.env.DATABASE_URL,
+    ssl: process.env.DATABASE_URL && process.env.DATABASE_URL.includes('render') ? { rejectUnauthorized: false } : false
 });
 
 // Test database connection
