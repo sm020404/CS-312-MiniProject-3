@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Entry · Wanderlust</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <div class="edit-page">
+        <h1 class="edit-title">Edit <em>Entry</em></h1>
+        <form action="/edit/<%= blog.blog_id %>" method="POST">
+            <input type="text" name="title" value="<%= blog.title %>" required>
+            <textarea name="body" required><%= blog.body %></textarea>
+            <button type="submit">Save</button>
+            <a href="/">Cancel</a>
+        </form>
+    </div>
+</body>
+</html>

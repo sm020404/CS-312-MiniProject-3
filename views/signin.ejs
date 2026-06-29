@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sign In · Wanderlust</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <div class="auth-page">
+        <div class="auth-box">
+            <h1 class="auth-title"><em>Welcome</em> Back</h1>
+            <div class="auth-sub">Sign in to your journal</div>
+
+            <% if (error) { %>
+                <p class="error"><%= error %></p>
+            <% } %>
+
+            <form action="/signin" method="POST">
+                <label>Username</label>
+                <input type="text" name="user_id" required>
+                <label>Password</label>
+                <input type="password" name="password" required>
+                <button type="submit">Enter</button>
+            </form>
+
+            <p class="auth-link">No account? <a href="/signup">Create one</a></p>
+        </div>
+    </div>
+</body>
+</html>

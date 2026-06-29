@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wanderlust Journal</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+
+    <nav class="nav">
+        <a href="/" class="logo">Wanderlust</a>
+        <div class="nav-links">
+            <% if (user) { %>
+                <a href="/signout">Sign Out</a>
+            <% } else { %>
+                <a href="/signin">Sign In</a>
+                <a href="/signup">Sign Up</a>
+            <% } %>
+        </div>
+    </nav>
+
+    <div class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-flowers"></div>
+        <div class="hero-overlay"></div>
+        <div class="hero-text">
+            <div class="hero-eyebrow">A personal journal · Est. 2026</div>
+            <h1 class="hero-title">Stories from<br><em>Around the World</em></h1>
+            <div class="hero-name">by Sofia Mendoza</div>
+            <div class="hero-sub">adventures, reflections & the art of living</div>
+        </div>
+    </div>
+
+    <% if (user) { %>
+    <div class="write-form">
+        <div class="write-label">New entry</div>
+        <form action="/create" method="POST">
+            <input type="text" name="title" placeholder="Title of your story..." required>
+            <textarea name="body" placeholder="Begin writing..." required></textarea>
+            <button type="submit">Publish</button>
+        </form>
+    </div>
+    <% } %>
+
+    <div class="feed">
+        <div class="section-mark">· · · latest entries · · ·</div>
+
+        <% blogs.forEach(blog => { %>
+        <div class="post">
+            <div class="post-tag">Entry</div>
+            <h2 class="post-title"><em><%= blog.title %></em></h2>
+            <p class="post-body"><%= blog.body %></p>
+            <div class="post-meta"><%= blog.creator_name %> &nbsp;·&nbsp; <%= blog.date_created.toDateString() %></div>
+
+            <% if (user && user.user_id === blog.creator_user_id) { %>
+            <div class="post-actions">
+                <a href="/edit/<%= blog.blog_id %>">edit</a>
+                <form action="/delete/<%= blog.blog_id %>" method="POST" style="display:inline;">
+                    <button type="submit">delete</button>
+                </form>
+            </div>
+            <% } %>
+            <div class="post-divider"></div>
+        </div>
+        <% }) %>
+    </div>
+
+</body>
+</html>
